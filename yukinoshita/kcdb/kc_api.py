@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 '''
-@Filename: kcdb_engine.py
+@Filename: kcdb_api.py
 @Description: This is python file to get kancolle data through kcwiki api urls.
 '''
 
