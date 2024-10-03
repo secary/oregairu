@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 '''
-@Filename: kcdb_engine.py
-@Description: This is the sql engine to connect to the local wsl server and access to kancolle db.
+@Filename: kcdb.py
+@Description: This is the module to set the sqlserver kcdb's engine and get data from the db
 '''
 
 from sqlalchemy import create_engine 
