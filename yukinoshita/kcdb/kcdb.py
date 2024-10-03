@@ -6,6 +6,8 @@
 
 from sqlalchemy import create_engine 
 import pandas as pd
+
+
 user = 'root'
 password = '20107991'
 host = '172.20.43.197'
@@ -21,8 +23,3 @@ def logbook():
     query = "SELECT * FROM kancolle.`logbook`;"
     df_kc_rawdata = pd.read_sql(query, con=engine())
     return df_kc_rawdata
-
-
-
-
-# print(df)
