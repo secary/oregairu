@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 @Filename: kcdb.py
-@Description: This is the module to set the sqlserver kcdb's engine and get data from the db
+@Description: This is the module of mt's kcdb tool kits, including set connection to mt's kcdb, get data from kcwiki api, import personal kancolle data from clipboard and database importer.
 """
 
 
