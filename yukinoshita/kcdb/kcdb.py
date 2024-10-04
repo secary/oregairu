@@ -19,11 +19,6 @@ from sqlalchemy.exc import OperationalError
 import socket
 
 
-user = "root"
-password = "20107991"
-host = "172.20.43.197"
-database = "kancolle"
-
 current_time = time.strftime("%Y%m%d%H%M%S", time.localtime())
 current_time
 
@@ -37,7 +32,14 @@ api_url = {
 
 # Set the engine of kcdb connection
 def engine():
-    kc_engine = create_engine((f"mysql+pymysql://{user}:{password}@{host}/{database}"))
+    sql = {
+        'user': 'root',
+        'password': '1519040104',
+        'host': '172.20.43.197',
+        'database': 'kancolle'
+        }
+
+    kc_engine = create_engine((f"mysql+pymysql://{sql['user']}:{sql['password']}@{sql['host']}/{sql['database']}"))
     return kc_engine
 
 # Get data from api url
@@ -148,5 +150,4 @@ def db_importer():
         print(f"An unexpected error occurred: {str(e)}")
 
 
-    
 
