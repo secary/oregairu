@@ -20,7 +20,8 @@ import socket
 
 
 current_time = time.strftime("%Y%m%d%H%M%S", time.localtime())
-current_time
+current_day = time.strftime("%Y%m%d", time.localtime())
+
 
 api_url = {
     'ship': "http://api.kcwiki.moe/ships",
@@ -62,7 +63,7 @@ def get_api():
         print(f"An error occurred: {req_err}")
 
     df = pd.DataFrame(data)
-    df.to_csv(f'rawdata/apidata/{api}.csv', index=True)
+    df.to_csv(f'data/apidata/{api}.csv', index=True)
 
     return 'Api data has been successfully saved!'
 
@@ -77,34 +78,40 @@ def get_logbook():
 # Import data from clipboard
 def get_clipboard():
     try:
+        os.mkdir(f'data/secary/{current_day}')
+    except FileExistsError:
+        pass
+    except Exception as e:
+        print('An unxpected error: ', e)
+
+    try:
         data_str = pd.read_clipboard(header=None)[0][0]
         data_json = json.loads(data_str)
         df = pd.DataFrame(data_json)
 
         if 'st' in df.columns:
-            df.to_csv(f'rawdata/secary/ships_{current_time}.csv')
+            df.to_csv(f'data/secary/{current_day}/ships_{current_time}.csv')
         else:
-            df.to_csv(f'rawdata/secary/slotitems_{current_time}.csv')
+            df.to_csv(f'data/secary/{current_day}/slotitems_{current_time}.csv')
+        print('The clipboard data has been successfully saved!')
 
     except json.JSONDecodeError as Decode_err:
         print(f'Error decoding JSON from clipboard: {Decode_err}\nPlease check the contents.' )
     except Exception as e:
         print('An unexpected error occured: ', e)
 
-    return 'The clipboard data has been successfully saved!'
-
 
 # Import data to kcdb
 def db_importer():
     '''
     Read the csv files from kcwiki api.
-    The path is "C:/Users/secar/OneDrive/oregairu/yukinoshita/kcdb/rawdata/apidata"
+    The path is "data/apidata"
     '''
-    df_ship = pd.read_csv('rawdata/apidata/ship.csv')
-    df_ship_stats = pd.read_csv('rawdata/apidata/ship_stats.csv')
-    df_slotitems = pd.read_csv('rawdata/apidata/slotitems.csv')
-    # df_slotitems_type = pd.read_csv('rawdata/apidata/slotitems_type.csv')
-    df_slotitems_detail = pd.read_csv('rawdata/apidata/slotitems_detail.csv')
+    df_ship = pd.read_csv('data/apidata/ship.csv')
+    df_ship_stats = pd.read_csv('data/apidata/ship_stats.csv')
+    df_slotitems = pd.read_csv('data/apidata/slotitems.csv')
+    # df_slotitems_type = pd.read_csv('data/apidata/slotitems_type.csv')
+    df_slotitems_detail = pd.read_csv('data/apidata/slotitems_detail.csv')
     print('Api raw data successfully read!')
 
     '''
