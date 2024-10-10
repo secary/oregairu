@@ -9,7 +9,6 @@ import json
 import requests
 from io import StringIO
 import os
-import pandas as pd
 import time
 from sqlalchemy import create_engine
 from sqlalchemy.exc import OperationalError
@@ -58,7 +57,7 @@ def get_clipboard() -> pd.DataFrame:
     except json.JSONDecodeError as Decode_err:
         print(f'Error decoding JSON from clipboard: {Decode_err}\nPlease check the contents.' )
     except Exception as e:
-        print('An unexpected error occured: ', e)
+        print(f'An unexpected error occured in reading clipboard: {e}\nPlease check the contents. ',)
 
 
 # Get data from url tables:
