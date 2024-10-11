@@ -39,27 +39,10 @@ def askurl(url):
             print(e.reason)
     return html
 
-def askurl(url):
-    head = {
-        'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36'
-    }
-    request = urllib.request.Request(url,headers=head)
-    html = ""
-    try:
-        # time.sleep(5)
-        response = urllib.request.urlopen(request)
-        html = response.read().decode('utf-8')
-    except urllib.error.HTTPError as e:
-        if hasattr(e,"code"):
-            print(e.code)
-        if hasattr(e,"reson"):
-            print(e.reason)
-    return html
-
 def getexchange_rate(url):
     html = askurl(url)
     soup = BeautifulSoup(html,"html.parser")
-    target_td = soup.find('td', text='澳大利亚元')
+    target_td = soup.find('td', string='澳大利亚元')
     if target_td:
         next_td = target_td.find_next_sibling('td')
         if next_td:
